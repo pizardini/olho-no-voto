@@ -1,4 +1,3 @@
-import PrimeiroDeputado from "./components/PrimeiroDeputado";
 import VotacoesList from "./components/VotacoesList";
 
 function App() {
