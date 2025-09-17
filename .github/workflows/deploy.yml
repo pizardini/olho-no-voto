@@ -10,20 +10,32 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # 1️⃣ Faz checkout do repositório
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      # 2️⃣ Configura Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 20
+          cache: "npm"  # cacheia node_modules entre builds
 
+      # 3️⃣ Limpa possíveis caches problemáticos (resolve erro do Rollup)
+      - name: Clean node_modules and lockfile
+        run: |
+          rm -rf node_modules
+          rm -f package-lock.json
+
+      # 4️⃣ Instala dependências
       - name: Install dependencies
         run: npm install
 
+      # 5️⃣ Build do projeto Vite
       - name: Build project
         run: npm run build
 
+      # 6️⃣ Deploy para GitHub Pages
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
