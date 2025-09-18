@@ -8,6 +8,8 @@ interface VotacaoItem {
 
 const votacoes: VotacaoItem[] = [
   { id: "2270800-160", titulo: "PEC da Blindagem" },
+  { id: "2562149-7", titulo: "Urgência da Anistia sobre atos de 08-01-2022" },
+  
 ];
 
 export default function VotacoesList() {
@@ -24,11 +26,16 @@ export default function VotacoesList() {
 
   return (
     <div>
-      <h2>Votações disponíveis:</h2>
-      <ul>
+      <h2 className="text-lg font-semibold mb-4">Votações disponíveis:</h2>
+      <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
         {votacoes.map((v) => (
           <li key={v.id}>
-            <button onClick={() => setSelecionada(v.id)}>{v.titulo}</button>
+            <button
+              onClick={() => setSelecionada(v.id)}
+              className="w-full rounded-lg bg-indigo-600 px-4 py-2 text-white hover:bg-indigo-700 transition"
+            >
+              {v.titulo}
+            </button>
           </li>
         ))}
       </ul>

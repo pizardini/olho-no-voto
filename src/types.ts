@@ -23,3 +23,10 @@ export interface ApiVotacaoResponse {
   dados: Voto[];
   links: any[];
 }
+
+export interface Votacao {
+  id: string;
+  data: string;
+  hora: string;
+  descricao: string | null;
+}
