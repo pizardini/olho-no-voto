@@ -6,6 +6,7 @@ const navigation = [
   { name: 'Início', to: '/' },
   { name: 'Projetos', to: '/projetos' },
   { name: 'Deputados', to: '/deputados' },
+  { name: 'Como Usar', to: '/como-usar' }
 ];
 
 function classNames(...classes: string[]) {

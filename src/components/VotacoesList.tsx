@@ -26,7 +26,7 @@ export default function VotacoesList() {
 
   return (
     <div>
-      <h2 className="text-lg font-semibold mb-4">Votações disponíveis:</h2>
+      <h2 className="text-lg font-semibold mb-4">Votações em destaque:</h2>
       <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
         {votacoes.map((v) => (
           <li key={v.id}>
