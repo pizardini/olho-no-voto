@@ -7,10 +7,8 @@ function App() {
         <div className="mt-4 text-sm sm:text-base md:text-lg">
         <VotacoesList />
         </div>
-      
-      
     </div>
-  );
+  )
 }
 
 export default App;
