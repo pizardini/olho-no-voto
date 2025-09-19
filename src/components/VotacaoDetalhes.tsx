@@ -6,11 +6,19 @@ interface Props {
   idVotacao: string;
 }
 
+const normalizeStr = (s: string) =>
+  s
+    .normalize("NFD")                // separa caracteres + diacríticos
+    .replace(/[\u0300-\u036f]/g, "") // remove os diacríticos
+    .toLowerCase()
+    .trim();
+
 export default function VotacaoDetalhes({ idVotacao }: Props) {
   const { votos, loading: votosLoading, error: votosError } = useVotacao(idVotacao);
   const { detalhes, loading: detalhesLoading, error: detalhesError } = useVotacaoDetalhes(idVotacao);
 
   const [expandedUF, setExpandedUF] = useState<string | null>(null);
+  const [search, setSearch] = useState("");
 
   if (votosLoading || detalhesLoading) {
     return <p className="text-gray-600">Carregando informações...</p>;
@@ -36,6 +44,21 @@ export default function VotacaoDetalhes({ idVotacao }: Props) {
   const ufsOrdenadas = Object.entries(votosPorUf).sort(
     (a, b) => b[1].length - a[1].length
   );
+
+  // Filtrar por UF ou nome do deputado
+  const termo = normalizeStr(search);
+  const ufsFiltradas = ufsOrdenadas
+  .map(([uf, votosUF]) => {
+    // Filtra os votos dentro do estado pelo termo
+    const votosFiltrados = votosUF.filter(
+      (v) =>
+        normalizeStr(v.deputado_.nome).includes(termo) ||
+        normalizeStr(uf).includes(termo)
+    );
+    return [uf, votosFiltrados] as [string, typeof votosUF];
+  })
+  // Mantém apenas estados que tenham algum voto filtrado
+  .filter(([_, votosUF]) => votosUF.length > 0);
 
   return (
     <div className="p-6 bg-white rounded-2xl shadow-md space-y-6">
@@ -66,12 +89,26 @@ export default function VotacaoDetalhes({ idVotacao }: Props) {
         )}
       </div>
 
+      {/* Caixa de busca */}
+      <div>
+        <input
+          type="text"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          placeholder="Buscar por sigla de UF (ex: SP) ou nome do deputado"
+          className="w-full p-2 border rounded-lg shadow-sm text-gray-900"
+        />
+      </div>
+
       {/* Lista de votos agrupados */}
       <div>
         <h3 className="text-xl font-semibold text-gray-900 mb-4">
           Votos por Estado
         </h3>
-        {ufsOrdenadas.map(([uf, votosUF]) => {
+        {ufsFiltradas.length === 0 && (
+          <p className="text-gray-600">Nenhum resultado encontrado.</p>
+        )}
+        {ufsFiltradas.map(([uf, votosUF]) => {
           const isOpen = expandedUF === uf;
           return (
             <div key={uf} className="mb-4 border rounded-lg bg-gray-50">
