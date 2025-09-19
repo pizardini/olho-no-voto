@@ -1,5 +1,6 @@
 import { Outlet } from "react-router";
 import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 export default function RootLayout() {
   return (
@@ -14,7 +15,9 @@ export default function RootLayout() {
         <div className="max-w-7xl mx-auto">
           <Outlet />
         </div>
+        
       </main>
+      <Footer />
     </div>
   );
 }
