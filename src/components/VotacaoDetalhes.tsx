@@ -49,12 +49,18 @@ export default function VotacaoDetalhes({ idVotacao }: Props) {
   const termo = normalizeStr(search);
   const ufsFiltradas = ufsOrdenadas
   .map(([uf, votosUF]) => {
-    // Filtra os votos dentro do estado pelo termo
-    const votosFiltrados = votosUF.filter(
-      (v) =>
-        normalizeStr(v.deputado_.nome).includes(termo) ||
-        normalizeStr(uf).includes(termo)
-    );
+    let votosFiltrados: typeof votosUF;
+    if (!termo) {
+      votosFiltrados = votosUF;
+    } else if (termo.length <= 2) {
+      // Busca por UF
+      votosFiltrados = uf.toLowerCase().includes(termo) ? votosUF : [];
+    } else {
+      // Busca por nome do deputado
+      votosFiltrados = votosUF.filter((v) =>
+        normalizeStr(v.deputado_.nome).includes(termo)
+      );
+    }
     return [uf, votosFiltrados] as [string, typeof votosUF];
   })
   // Mantém apenas estados que tenham algum voto filtrado
