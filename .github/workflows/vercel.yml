@@ -1,4 +1,4 @@
-name: Deploy Vite React to Vercel Branch
+name: Prepare Vercel Branch
 
 on:
   push:
@@ -6,46 +6,30 @@ on:
       - main  # roda sempre que houver push na main
 
 jobs:
-  build-and-deploy-vercel:
+  prepare-vercel:
     runs-on: ubuntu-latest
 
     steps:
-      # 1️⃣ Faz checkout do repositório
-      - name: Checkout repository
+      # 1️⃣ Faz checkout da branch main
+      - name: Checkout main
         uses: actions/checkout@v3
 
-      # 2️⃣ Configura Node.js
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 20
-          cache: "npm"
-
-      # 3️⃣ Limpa node_modules e lockfile (resolve problemas de dependências)
-      - name: Clean node_modules and lockfile
+      # 2️⃣ Ajusta basename no React Router
+      - name: Adjust basename in main.tsx
         run: |
-          rm -rf node_modules
-          rm -f package-lock.json
+          sed -i 's|basename="/olho-no-voto"|basename="/"|' src/main.tsx || echo "No change"
 
-      # 4️⃣ Instala dependências
-      - name: Install dependencies
-        run: npm install
-
-      # 5️⃣ Build do projeto Vite
-      - name: Build project
-        run: npm run build
-
-      # 6️⃣ Ajusta o base para Vercel
-      - name: Adjust base for Vercel
+      # 3️⃣ Ajusta base no vite.config.ts
+      - name: Adjust base in vite.config.ts
         run: |
-          sed -i 's|<base href="/olho-no-voto/">|<base href="/">|' dist/index.html
+          sed -i 's|base: "/olho-no-voto/"|base: "/"|' vite.config.ts || echo "No change"
 
-      # 7️⃣ Commit e push do build para branch do Vercel
+      # 4️⃣ Commit e push para branch vercel-deploy
       - name: Push to Vercel deploy branch
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git checkout -B vercel-deploy
-          git add -f dist
-          git commit -m "Deploy Vercel [skip ci]" || echo "No changes to commit"
+          git add .
+          git commit -m "Adjust basename and vite base for Vercel [skip ci]" || echo "No changes to commit"
           git push -f origin vercel-deploy
