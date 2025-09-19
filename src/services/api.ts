@@ -1,5 +1,6 @@
 // src/services/api.ts
-import type { Deputado, Voto, Votacao } from "../types";
+import type { Deputado, Voto, Votacao, VotacaoDetalhesData } from "../types";
+
 
 export async function fetchDeputados(): Promise<Deputado[]> {
   const res = await fetch(
@@ -50,5 +51,14 @@ export async function fetchVotacoes(params?: {
     hora: v.hora,
     descricao: v.descricao,
   }));
+}
+
+export async function fetchVotacaoDetalhes(idVotacao: string): Promise<VotacaoDetalhesData> {
+  const res = await fetch(`https://dadosabertos.camara.leg.br/api/v2/votacoes/${idVotacao}`);
+  if (!res.ok) {
+    throw new Error("Erro ao buscar detalhes da votação");
+  }
+  const data = await res.json();
+  return data.dados;
 }
 
