@@ -6,6 +6,7 @@ import RootLayout from './layouts/RootLayout';
 import './index.css';
 import Projetos from './components/Projetos';
 import Deputados from './components/Deputados';
+import ComoUsar from './components/ComoUsar';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -15,6 +16,7 @@ createRoot(document.getElementById('root')!).render(
           <Route index element={<App />} />
           <Route path="projetos" element={<Projetos />} />
           <Route path="deputados" element={<Deputados />} />
+          <Route path="como-usar" element={<ComoUsar />} />
         </Route>
       </Routes>
     </BrowserRouter>
