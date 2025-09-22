@@ -7,7 +7,6 @@ function ProposicoesList() {
   const [siglaTipo, setSiglaTipo] = useState("");
   const [dataInicio, setDataInicio] = useState("");
   const [dataFim, setDataFim] = useState("");
-  const [aplicar, setAplicar] = useState(false);
 
   const [appliedFilters, setAppliedFilters] = useState<{
     idProposicao?: string;
