@@ -98,22 +98,18 @@ export default function VotacaoDetalhes({ idVotacao }: Props) {
             {detalhes.aprovacao === 1 ? "Sim" : "Não"}
           </span>
         </p>
-
-        {/* {detalhes.objetosPossiveis.length > 0 && (
-          <p className="text-sm text-gray-700 mt-2">
-            Proposição:{" "}
-            <a
-              href={detalhes.objetosPossiveis[0].uri}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 underline"
-            >
-              {detalhes.objetosPossiveis[0].siglaTipo}{" "}
-              {detalhes.objetosPossiveis[0].numero}/
-              {detalhes.objetosPossiveis[0].ano}
-            </a>
-          </p>
-        )} */}
+        {detalhes.proposicoesAfetadas.length > 0 && (
+          <div className="mt-2">
+            <p className="text-sm text-gray-700">
+              Proposição:{" "}
+                {detalhes.proposicoesAfetadas[0].siglaTipo}{" "}
+                {detalhes.proposicoesAfetadas[0].numero}/{detalhes.proposicoesAfetadas[0].ano}
+            </p>
+            <p className="text-sm text-gray-600">
+              {detalhes.proposicoesAfetadas[0].ementa}
+            </p>
+          </div>
+        )}
         {proposicao?.urlInteiroTeor && (
         <a
           href={proposicao.urlInteiroTeor}
