@@ -7,7 +7,7 @@ import './index.css';
 import Projetos from './components/Projetos';
 import Deputados from './components/Deputados';
 import ComoUsar from './components/ComoUsar';
-import Proposicoes from './components/proposicoes';
+import Proposicoes from './components/ProposicoesList';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

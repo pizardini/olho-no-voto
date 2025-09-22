@@ -75,5 +75,10 @@ export interface ObjetoPossivel {
 
 export interface ProposicaoDetalhesData {
   id: number;
+  siglaTipo: string;
+  codTipo: number;
+  numero: number;
+  ano: number;
+  ementa: string;
   urlInteiroTeor: string;
 }

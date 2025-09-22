@@ -70,6 +70,37 @@ export async function fetchProposicao(idProposicao: string): Promise<ProposicaoD
   return data.dados;
 }
 
+export async function fetchProposicoesList(filters?: {
+  idProposicao?: string;
+  ano?: number;
+  siglaTipo?: string;
+  dataApresentacaoInicio?: string;
+  dataApresentacaoFim?: string;
+  idAutor?: number;
+  autor?: string;
+}) {
+  const baseUrl  = 'https://dadosabertos.camara.leg.br/api/v2/proposicoes';
+  const params = new URLSearchParams();
+  if (filters) {
+    if (filters.idProposicao) params.append("idProposicao", filters.idProposicao);
+    if (filters.ano !== undefined && filters.ano !== null) params.append("ano", String(filters.ano));
+    if (filters.siglaTipo) params.append("siglaTipo", filters.siglaTipo);
+    if (filters.dataApresentacaoInicio) params.append("dataApresentacaoInicio", filters.dataApresentacaoInicio);
+    if (filters.dataApresentacaoFim) params.append("dataApresentacaoFim", filters.dataApresentacaoFim);
+    if (filters.idAutor !== undefined && filters.idAutor !== null) params.append("idAutor", String(filters.idAutor));
+    if (filters.autor) params.append("autor", filters.autor);
+  }
+  const url = params.toString() ? `${baseUrl}?${params.toString()}` : baseUrl;
+  const res = await fetch(url, { headers: { Accept: "application/json" } });
+  if (!res.ok) {
+    const txt = await res.text().catch(() => "");
+    throw new Error(`Erro ao buscar proposições (status ${res.status}) ${txt}`);
+  }
+  console.log(url);
+  const data = await res.json();
+  return data.dados;
+}
+
 export async function fetchInteiroTeor(url: string): Promise<ProposicaoDetalhesData> {
   const res = await fetch(url);
   if (!res.ok) {
