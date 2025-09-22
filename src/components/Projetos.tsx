@@ -63,42 +63,53 @@ return (
         />
 
         <select className="border px-2 py-1 rounded flex-1 min-w-[150px]">
-          <option value="ASC">ASC</option>
-          <option value="DESC">DESC</option>
+          <option className="text-gray-800" value="ASC">ASC</option>
+          <option className="text-gray-800" value="DESC">DESC</option>
         </select>
 
         <select className="border px-2 py-1 rounded flex-1 min-w-[150px]">
-          <option value="id">id</option>
-          <option value="idEvento">idEvento</option>
-          <option value="idOrgao">idOrgao</option>
-          <option value="idProposicao">idProposicao</option>
-          <option value="dataHoraRegistro">dataHoraRegistro</option>
+          <option className="text-gray-800" value="id">id</option>
+          <option className="text-gray-800" value="idEvento">idEvento</option>
+          <option className="text-gray-800" value="idOrgao">idOrgao</option>
+          <option className="text-gray-800" value="idProposicao">idProposicao</option>
         </select>
       </div>
 
       {/* Botão */}
-      <div>
-        <button
-          onClick={() => setAplicar(true)}
+      {/* <div>
+        <button disabled={loading}
+          // onClick={() => setAplicar(true)}
           className="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700"
+          // className="bg-indigo-600 text-white px-4 py-2 rounded"
         >
           Buscar
         </button>
-      </div>
+      </div> */}
+      <button disabled>Busca ainda não implementada</button>
     </div>
 
       {loading && <p>Carregando...</p>}
       {error && <p className="text-red-600">{error}</p>}
 
       <ul className="space-y-2">
-        {votacoes.map((v) => (
+        {/* {votacoes.map((v) => (
           <li key={v.id} className="border p-2 rounded">
             <p className="font-semibold">{v.descricao || "Sem descrição"}</p>
             <p className="text-sm text-gray-600">
               {v.data} e {v.id}
             </p>
           </li>
-        ))}
+        ))} */}
+        {votacoes?.[0] ? (
+          <li key={votacoes[0].id} className="border p-2 rounded">
+            <p className="font-semibold">{votacoes[0].descricao || "Sem descrição"}</p>
+            <p className="text-sm text-gray-600">
+              {votacoes[0].data} e {votacoes[0].id}
+            </p>
+          </li>
+        ) : (
+          <p>Nenhuma votação encontrada.</p>
+        )}
       </ul>
     </div>
   );

@@ -7,6 +7,7 @@ import './index.css';
 import Projetos from './components/Projetos';
 import Deputados from './components/Deputados';
 import ComoUsar from './components/ComoUsar';
+import Proposicoes from './components/proposicoes';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -17,6 +18,7 @@ createRoot(document.getElementById('root')!).render(
           <Route path="projetos" element={<Projetos />} />
           <Route path="deputados" element={<Deputados />} />
           <Route path="como-usar" element={<ComoUsar />} />
+          <Route path="proposicoes" element={<Proposicoes />} />
         </Route>
       </Routes>
     </BrowserRouter>

@@ -4,7 +4,7 @@ import { Link, useLocation } from 'react-router';
 
 const navigation = [
   { name: 'Início', to: '/' },
-  { name: 'Projetos', to: '/projetos' },
+  { name: 'Proposições', to: '/proposicoes' },
   { name: 'Deputados', to: '/deputados' },
   { name: 'Como Usar', to: '/como-usar' }
 ];
