@@ -41,14 +41,14 @@ export interface VotacaoDetalhesData {
   idEvento: number;
   idOrgao: number;
   objetosPossiveis: ObjetoPossivel[];
-  // proposicoesAfetadas: ProposicaoAfetada[];
+  proposicoesAfetadas: ProposicaoAfetada[];
   siglaOrgao: string;
   ultimaApresentacaoProposicao: UltimaApresentacao | null;
   uri: string;
   uriEvento: string;
   uriOrgao: string;
 }
-// export interface ProposicaoAfetada extends ObjetoPossivel {}
+export interface ProposicaoAfetada extends ObjetoPossivel {}
 
 export interface UltimaApresentacao {
   dataHoraRegistro: string;

@@ -8,9 +8,11 @@ export function useProposicaoDetalhes(url: string) {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!url) return;
-    setLoading(true);
-    setError(null);
+    if (!url) {
+      setLoading(false);
+      setError(null);
+      return;
+    }
 
     fetchInteiroTeor(url)
       .then((data) => setDetalhesP(data))
