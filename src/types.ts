@@ -8,10 +8,10 @@ export interface Deputado {
   urlFoto: string;
   email: string;
 }
-export interface ApiDeputadoResponse {
-  dados: Deputado[];
-  links: any[];
-}
+// export interface ApiDeputadoResponse {
+//   dados: Deputado[];
+//   links: any[];
+// }
 
 export interface Voto {
   tipoVoto: string;
@@ -19,10 +19,10 @@ export interface Voto {
   deputado_: Deputado;
 }
 
-export interface ApiVotacaoResponse {
-  dados: Voto[];
-  links: any[];
-}
+// export interface ApiVotacaoResponse {
+//   dados: Voto[];
+//   links: any[];
+// }
 
 export interface Votacao {
   id: string;
@@ -31,12 +31,37 @@ export interface Votacao {
   descricao: string | null;
 }
 
-export interface EfeitoRegistrado {
-  dataHoraResultado: string;
-  descResultado: string;
-  tituloProposicao: string;
-  uriProposicao: string;
+export interface VotacaoDetalhesData {
+  aprovacao: number;
+  data: string;
+  dataHoraRegistro: string;
+  descricao: string;
+  // efeitosRegistrados: EfeitoRegistrado[];
+  id: string;
+  idEvento: number;
+  idOrgao: number;
+  objetosPossiveis: ObjetoPossivel[];
+  // proposicoesAfetadas: ProposicaoAfetada[];
+  siglaOrgao: string;
+  ultimaApresentacaoProposicao: UltimaApresentacao | null;
+  uri: string;
+  uriEvento: string;
+  uriOrgao: string;
 }
+// export interface ProposicaoAfetada extends ObjetoPossivel {}
+
+export interface UltimaApresentacao {
+  dataHoraRegistro: string;
+  descricao: string;
+  uriProposicaoCitada: string;
+}
+
+// export interface EfeitoRegistrado {
+//   dataHoraResultado: string;
+//   descResultado: string;
+//   tituloProposicao: string;
+//   uriProposicao: string;
+// }
 
 export interface ObjetoPossivel {
   ano: number;
@@ -48,28 +73,7 @@ export interface ObjetoPossivel {
   uri: string;
 }
 
-export interface ProposicaoAfetada extends ObjetoPossivel {}
-
-export interface UltimaApresentacao {
-  dataHoraRegistro: string;
-  descricao: string;
-  uriProposicaoCitada: string;
-}
-
-export interface VotacaoDetalhesData {
-  aprovacao: number;
-  data: string;
-  dataHoraRegistro: string;
-  descricao: string;
-  efeitosRegistrados: EfeitoRegistrado[];
-  id: string;
-  idEvento: number;
-  idOrgao: number;
-  objetosPossiveis: ObjetoPossivel[];
-  proposicoesAfetadas: ProposicaoAfetada[];
-  siglaOrgao: string;
-  ultimaApresentacaoProposicao: UltimaApresentacao | null;
-  uri: string;
-  uriEvento: string;
-  uriOrgao: string;
+export interface ProposicaoDetalhesData {
+  id: number;
+  urlInteiroTeor: string;
 }

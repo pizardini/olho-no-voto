@@ -1,5 +1,4 @@
-// src/services/api.ts
-import type { Deputado, Voto, Votacao, VotacaoDetalhesData } from "../types";
+import type { Deputado, Voto, Votacao, VotacaoDetalhesData, ProposicaoDetalhesData } from "../types";
 
 
 export async function fetchDeputados(): Promise<Deputado[]> {
@@ -62,3 +61,20 @@ export async function fetchVotacaoDetalhes(idVotacao: string): Promise<VotacaoDe
   return data.dados;
 }
 
+export async function fetchProposicao(idProposicao: string): Promise<ProposicaoDetalhesData> {
+  const res = await fetch(`https://dadosabertos.camara.leg.br/api/v2/proposicoes/${idProposicao}`);
+  if (!res.ok) {
+    throw new Error("Erro ao buscar detalhes da proposição");
+  }
+  const data = await res.json();
+  return data.dados;
+}
+
+export async function fetchInteiroTeor(url: string): Promise<ProposicaoDetalhesData> {
+  const res = await fetch(url);
+  if (!res.ok) {
+    throw new Error("Erro ao buscar inteiro teor da proposição");
+  }
+  const data = await res.json();
+  return data.dados;
+}

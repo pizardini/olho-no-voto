@@ -1,6 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useVotacao } from "../hooks/useVotacao";
 import { useVotacaoDetalhes } from "../hooks/useVotacaoDetalhes";
+import { useProposicaoDetalhes } from "../hooks/useProposicao";
+import infosJson from "../data/infos.json";
+
+const infos: Record<string, { resumo: string }> = infosJson;
 
 interface Props {
   idVotacao: string;
@@ -16,16 +20,25 @@ const normalizeStr = (s: string) =>
 export default function VotacaoDetalhes({ idVotacao }: Props) {
   const { votos, loading: votosLoading, error: votosError } = useVotacao(idVotacao);
   const { detalhes, loading: detalhesLoading, error: detalhesError } = useVotacaoDetalhes(idVotacao);
-
+  
+  const [ uriProposicao, setUriProposicao] = useState<string | null>(null);
   const [expandedUF, setExpandedUF] = useState<string | null>(null);
   const [search, setSearch] = useState("");
 
-  if (votosLoading || detalhesLoading) {
+  useEffect(() => {
+  if (detalhes?.ultimaApresentacaoProposicao?.uriProposicaoCitada) {
+    setUriProposicao(detalhes.ultimaApresentacaoProposicao.uriProposicaoCitada);
+  }
+}, [detalhes]);
+
+  const { detalhesP: proposicao, loading: proposicaoLoading, error: proposicaoError } = useProposicaoDetalhes(uriProposicao || "");
+
+  if (votosLoading || detalhesLoading || proposicaoLoading) {
     return <p className="text-gray-600">Carregando informações...</p>;
   }
 
-  if (votosError || detalhesError) {
-    return <p className="text-red-600">Erro: {votosError || detalhesError}</p>;
+  if (votosError || detalhesError || proposicaoError) {
+    return <p className="text-red-600">Erro: {votosError || detalhesError || proposicaoError}</p>;
   }
 
   if (!detalhes) {
@@ -73,12 +86,20 @@ export default function VotacaoDetalhes({ idVotacao }: Props) {
         <h2 className="text-2xl font-bold text-gray-900 mb-2">
           Votação {detalhes.id}
         </h2>
+        <p className="text-sm text-gray-600">{infos[detalhes.id]?.resumo}</p>
         <p className="text-gray-700 mb-1">{detalhes.descricao}</p>
         <p className="text-sm text-gray-600">
           Data: {new Date(detalhes.dataHoraRegistro).toLocaleString("pt-BR")}
         </p>
         <p className="text-sm text-gray-600">Órgão: {detalhes.siglaOrgao}</p>
-        {detalhes.objetosPossiveis.length > 0 && (
+        <p className="text-sm text-gray-800 font-semibold">
+          Aprovada:{" "}
+          <span className={detalhes.aprovacao === 1 ? "text-red-600" : "text-green-600"}>
+            {detalhes.aprovacao === 1 ? "Sim" : "Não"}
+          </span>
+        </p>
+
+        {/* {detalhes.objetosPossiveis.length > 0 && (
           <p className="text-sm text-gray-700 mt-2">
             Proposição:{" "}
             <a
@@ -92,7 +113,18 @@ export default function VotacaoDetalhes({ idVotacao }: Props) {
               {detalhes.objetosPossiveis[0].ano}
             </a>
           </p>
+        )} */}
+        {proposicao?.urlInteiroTeor && (
+        <a
+          href={proposicao.urlInteiroTeor}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-blue-600 underline"
+        >
+          Inteiro teor
+        </a>
         )}
+
       </div>
 
       {/* Caixa de busca */}
