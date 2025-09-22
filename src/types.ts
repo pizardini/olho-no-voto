@@ -8,21 +8,12 @@ export interface Deputado {
   urlFoto: string;
   email: string;
 }
-// export interface ApiDeputadoResponse {
-//   dados: Deputado[];
-//   links: any[];
-// }
 
 export interface Voto {
   tipoVoto: string;
   dataRegistroVoto: string;
   deputado_: Deputado;
 }
-
-// export interface ApiVotacaoResponse {
-//   dados: Voto[];
-//   links: any[];
-// }
 
 export interface Votacao {
   id: string;

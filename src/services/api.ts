@@ -10,7 +10,6 @@ export async function fetchDeputados(): Promise<Deputado[]> {
   return data.dados;
 }
 
-// Novo: buscar votos de uma votação específica
 export async function fetchVotos(idVotacao: string): Promise<Voto[]> {
   const res = await fetch(
     `https://dadosabertos.camara.leg.br/api/v2/votacoes/${idVotacao}/votos`
@@ -78,6 +77,8 @@ export async function fetchProposicoesList(filters?: {
   dataApresentacaoFim?: string;
   idAutor?: number;
   autor?: string;
+  ordenarPor?: string;
+  ordem?: "asc" | "desc";
 }) {
   const baseUrl  = 'https://dadosabertos.camara.leg.br/api/v2/proposicoes';
   const params = new URLSearchParams();
@@ -89,8 +90,10 @@ export async function fetchProposicoesList(filters?: {
     if (filters.dataApresentacaoFim) params.append("dataApresentacaoFim", filters.dataApresentacaoFim);
     if (filters.idAutor !== undefined && filters.idAutor !== null) params.append("idAutor", String(filters.idAutor));
     if (filters.autor) params.append("autor", filters.autor);
+    if (filters.ordenarPor) params.append("ordenarPor", filters.ordenarPor);
+    if (filters.ordem) params.append("ordem", filters.ordem);
   }
-  const url = params.toString() ? `${baseUrl}?${params.toString()}` : baseUrl;
+  const url = params.toString() ? `${baseUrl}?${params.toString()}` : baseUrl + '?ano=2025&ordem=desc&ordenarPor=numero';
   const res = await fetch(url, { headers: { Accept: "application/json" } });
   if (!res.ok) {
     const txt = await res.text().catch(() => "");

@@ -8,12 +8,17 @@ function ProposicoesList() {
   const [dataInicio, setDataInicio] = useState("");
   const [dataFim, setDataFim] = useState("");
 
+  const [ordenarPor, setOrdenarPor] = useState<"id" | "codTipo" | "siglaTipo" | "numero" | "ano">("numero");
+  const [ordem, setOrdem] = useState<"asc" | "desc">("desc");
+
   const [appliedFilters, setAppliedFilters] = useState<{
     idProposicao?: string;
     ano?: number;
     siglaTipo?: string;
     dataApresentacaoInicio?: string;
     dataApresentacaoFim?: string;
+    ordenarPor?: string;
+    ordem?: "asc" | "desc";
   } | undefined>(undefined);
 
 const { proposicoes, loading, error } = useProposicoes(appliedFilters);
@@ -25,6 +30,8 @@ const { proposicoes, loading, error } = useProposicoes(appliedFilters);
       siglaTipo: siglaTipo || undefined,
       dataApresentacaoInicio: dataInicio || undefined,
       dataApresentacaoFim: dataFim || undefined,
+      ordenarPor,
+      ordem
     });
   };
 
@@ -74,6 +81,36 @@ const { proposicoes, loading, error } = useProposicoes(appliedFilters);
           />
         </div>
 
+        {/* Ordenação */}
+        <div className="flex flex-wrap gap-2 items-center">
+          <label>
+            Ordenar por:{" "}
+            <select
+              value={ordenarPor}
+              onChange={(e) => setOrdenarPor(e.target.value as any)}
+              className="border px-2 py-1 rounded"
+            >
+              <option className="text-gray-900" value="id">ID</option>
+              <option className="text-gray-900" value="codTipo">codTipo</option>
+              <option className="text-gray-900" value="siglaTipo">siglaTipo</option>
+              <option className="text-gray-900" value="numero">Número</option>
+              <option className="text-gray-900" value="ano">Ano</option>
+            </select>
+          </label>
+
+          <label>
+            Ordem:{" "}
+            <select
+              value={ordem}
+              onChange={(e) => setOrdem(e.target.value as "asc" | "desc")}
+              className="border px-2 py-1 rounded"
+            >
+              <option className="text-gray-900" value="asc">Ascendente</option>
+              <option className="text-gray-900" value="desc">Descendente</option>
+            </select>
+          </label>
+        </div>
+
         {/* Botão */}
         <div>
           <button
@@ -96,7 +133,7 @@ const { proposicoes, loading, error } = useProposicoes(appliedFilters);
               <p className="font-semibold">
                 {p.siglaTipo} {p.numero}/{p.ano}
               </p>
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-gray-400">
                 {p.ementa || "Sem ementa"}
               </p>
             </li>
