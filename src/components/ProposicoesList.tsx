@@ -66,18 +66,18 @@ const { proposicoes, loading, error } = useProposicoes(appliedFilters);
         </div>
 
         {/* Segunda linha */}
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-2 justify-center">
           <input
             type="date"
             value={dataInicio}
             onChange={(e) => setDataInicio(e.target.value)}
-            className="border px-2 py-1 rounded flex-1 min-w-[150px]"
+            className="border px-2 py-1 rounded flex-1 min-w-[150px] max-w-[210px]"
           />
           <input
             type="date"
             value={dataFim}
             onChange={(e) => setDataFim(e.target.value)}
-            className="border px-2 py-1 rounded flex-1 min-w-[150px]"
+            className="border px-2 py-1 rounded flex-1 min-w-[150px] max-w-[210px]"
           />
         </div>
 
