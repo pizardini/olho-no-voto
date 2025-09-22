@@ -4,7 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router";
 import App from './App';
 import RootLayout from './layouts/RootLayout';
 import './index.css';
-import Projetos from './components/Projetos';
+import Votacoes from './components/Projetos';
 import Deputados from './components/Deputados';
 import ComoUsar from './components/ComoUsar';
 import Proposicoes from './components/ProposicoesList';
@@ -15,7 +15,7 @@ createRoot(document.getElementById('root')!).render(
       <Routes>
         <Route element={<RootLayout />}>
           <Route index element={<App />} />
-          <Route path="projetos" element={<Projetos />} />
+          <Route path="votacoes" element={<Votacoes />} />
           <Route path="deputados" element={<Deputados />} />
           <Route path="como-usar" element={<ComoUsar />} />
           <Route path="proposicoes" element={<Proposicoes />} />

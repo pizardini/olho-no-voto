@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useVotacoes } from "../hooks/useVotacoes";
 
-function Projetos() {
+function Votacoes() {
   const [idProposicao, setIdProposicao] = useState("");
   const [dataInicio, setDataInicio] = useState("");
   const [dataFim, setDataFim] = useState("");
@@ -80,12 +80,10 @@ return (
         <button disabled={loading}
           onClick={() => setAplicar(true)}
           className="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700"
-          // className="bg-indigo-600 text-white px-4 py-2 rounded"
         >
           Buscar
         </button>
       </div>
-      <button disabled>Busca ainda não implementada</button>
     </div>
 
       {loading && <p>Carregando...</p>}
@@ -115,4 +113,4 @@ return (
   );
 }
 
-export default Projetos;
+export default Votacoes;
