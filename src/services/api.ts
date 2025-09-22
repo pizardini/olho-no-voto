@@ -82,7 +82,7 @@ export async function fetchProposicoesList(filters?: {
   const baseUrl  = 'https://dadosabertos.camara.leg.br/api/v2/proposicoes';
   const params = new URLSearchParams();
   if (filters) {
-    if (filters.idProposicao) params.append("idProposicao", filters.idProposicao);
+    if (filters.idProposicao) params.append("id", filters.idProposicao);
     if (filters.ano !== undefined && filters.ano !== null) params.append("ano", String(filters.ano));
     if (filters.siglaTipo) params.append("siglaTipo", filters.siglaTipo);
     if (filters.dataApresentacaoInicio) params.append("dataApresentacaoInicio", filters.dataApresentacaoInicio);

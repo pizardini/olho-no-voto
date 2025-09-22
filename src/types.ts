@@ -82,3 +82,10 @@ export interface ProposicaoDetalhesData {
   ementa: string;
   urlInteiroTeor: string;
 }
+
+export interface siglaTipos {
+  cod: number;
+  sigla: string;
+  nome: string;
+  descricao: string;
+}

@@ -9,15 +9,25 @@ function ProposicoesList() {
   const [dataFim, setDataFim] = useState("");
   const [aplicar, setAplicar] = useState(false);
 
-  const filters = aplicar ? {
-    idProposicao: id || undefined,
-    ano: ano ? Number(ano) : undefined,
-    siglaTipo: siglaTipo || undefined,
-    dataApresentacaoInicio: dataInicio || undefined,
-    dataApresentacaoFim: dataFim || undefined,
-  } : undefined;
+  const [appliedFilters, setAppliedFilters] = useState<{
+    idProposicao?: string;
+    ano?: number;
+    siglaTipo?: string;
+    dataApresentacaoInicio?: string;
+    dataApresentacaoFim?: string;
+  } | undefined>(undefined);
 
-const { proposicoes, loading, error } = useProposicoes(filters);
+const { proposicoes, loading, error } = useProposicoes(appliedFilters);
+
+  const handleBuscar = () => {
+    setAppliedFilters({
+      idProposicao: id || undefined,
+      ano: ano ? Number(ano) : undefined,
+      siglaTipo: siglaTipo || undefined,
+      dataApresentacaoInicio: dataInicio || undefined,
+      dataApresentacaoFim: dataFim || undefined,
+    });
+  };
 
   return (
     <div className="p-4">
@@ -69,7 +79,7 @@ const { proposicoes, loading, error } = useProposicoes(filters);
         <div>
           <button
             disabled={loading}
-            onClick={() => setAplicar(true)}
+            onClick={handleBuscar}
             className="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700"
           >
             Buscar
