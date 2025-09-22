@@ -96,7 +96,6 @@ export async function fetchProposicoesList(filters?: {
     const txt = await res.text().catch(() => "");
     throw new Error(`Erro ao buscar proposições (status ${res.status}) ${txt}`);
   }
-  console.log(url);
   const data = await res.json();
   return data.dados;
 }
