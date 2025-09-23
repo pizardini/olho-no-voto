@@ -157,7 +157,14 @@ export default function VotacaoDetalhes({ idVotacao }: Props) {
               </button>
               {isOpen && (
                 <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 p-4">
-                  {votosUF.map((v) => (
+                  {votosUF
+                    .slice()
+                    .sort((a, b) => {
+                      const partidoA = a.deputado_.siglaPartido.localeCompare(b.deputado_.siglaPartido);
+                      if (partidoA !== 0) return partidoA;
+                      return a.deputado_.nome.localeCompare(b.deputado_.nome);
+                    })
+                    .map((v) => (
                     <li
                       key={v.deputado_.id}
                       className="p-3 bg-white rounded-lg shadow-sm border text-sm text-gray-900"
