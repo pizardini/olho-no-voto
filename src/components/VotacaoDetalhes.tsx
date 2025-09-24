@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useVotacao } from "../hooks/useVotacao";
 import { useVotacaoDetalhes } from "../hooks/useVotacaoDetalhes";
-import { useProposicaoDetalhes } from "../hooks/useProposicao";
+import { useProposicaoTeor } from "../hooks/useProposicao";
 import infosJson from "../data/infos.json";
 import { useParams } from "react-router";
 
@@ -33,7 +33,7 @@ export default function VotacaoDetalhes() {
     }
   }, [detalhes]);
 
-  const { detalhesP: proposicao, loading: proposicaoLoading, error: proposicaoError } = useProposicaoDetalhes(uriProposicao || "");
+  const { detalhesP: proposicao, loading: proposicaoLoading, error: proposicaoError } = useProposicaoTeor(uriProposicao || "");
 
   if (votosLoading || detalhesLoading || proposicaoLoading) {
     return <p className="text-gray-600">Carregando informações...</p>;

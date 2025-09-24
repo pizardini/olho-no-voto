@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { fetchInteiroTeor } from "../services/api";
 import type { ProposicaoDetalhesData } from "../types";
 
-export function useProposicaoDetalhes(url: string) {
+export function useProposicaoTeor(url: string) {
   const [detalhesP, setDetalhesP] = useState<ProposicaoDetalhesData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
