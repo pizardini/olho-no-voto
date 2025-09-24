@@ -8,6 +8,7 @@ function ProposicoesList() {
   const [siglaTipo, setSiglaTipo] = useState("");
   const [dataInicio, setDataInicio] = useState("");
   const [dataFim, setDataFim] = useState("");
+  const [keywords, setKeywords] = useState("");
   const navigate = useNavigate();
   const [ordenarPor, setOrdenarPor] = useState<"id" | "codTipo" | "siglaTipo" | "numero" | "ano">("numero");
   const [ordem, setOrdem] = useState<"asc" | "desc">("desc");
@@ -20,6 +21,7 @@ function ProposicoesList() {
     dataApresentacaoFim?: string;
     ordenarPor?: string;
     ordem?: "asc" | "desc";
+    keywords?: string;
   } | undefined>(undefined);
 
 const { proposicoes, loading, error } = useProposicoes(appliedFilters);
@@ -29,10 +31,11 @@ const { proposicoes, loading, error } = useProposicoes(appliedFilters);
       idProposicao: id || undefined,
       ano: ano ? Number(ano) : undefined,
       siglaTipo: siglaTipo || undefined,
+      keywords: keywords || undefined,
       dataApresentacaoInicio: dataInicio || undefined,
       dataApresentacaoFim: dataFim || undefined,
       ordenarPor,
-      ordem
+      ordem,
     });
   };
 
@@ -44,7 +47,7 @@ const { proposicoes, loading, error } = useProposicoes(appliedFilters);
         {/* Primeira linha */}
         <div className="flex flex-wrap gap-2">
           <input
-            type="text"
+            type="number"
             placeholder="id"
             value={id}
             onChange={(e) => setId(e.target.value)}
@@ -64,10 +67,17 @@ const { proposicoes, loading, error } = useProposicoes(appliedFilters);
             onChange={(e) => setSiglaTipo(e.target.value)}
             className="border px-2 py-1 rounded flex-1 min-w-[150px]"
           />
-        </div>
+          </div>
 
         {/* Segunda linha */}
         <div className="flex flex-wrap gap-2 justify-center">
+          <input
+            type="text"
+            placeholder="palavras-chave (separadas por vírgula)"
+            value={keywords}
+            onChange={(e) => setKeywords(e.target.value)}
+            className="border px-2 py-1 rounded flex-1 min-w-[150px]"
+          />
           <input
             type="date"
             value={dataInicio}

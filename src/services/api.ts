@@ -79,6 +79,7 @@ export async function fetchProposicoesList(filters?: {
   autor?: string;
   ordenarPor?: string;
   ordem?: "asc" | "desc";
+  keywords?: string;
 }) {
   const baseUrl  = 'https://dadosabertos.camara.leg.br/api/v2/proposicoes';
   const params = new URLSearchParams();
@@ -92,6 +93,14 @@ export async function fetchProposicoesList(filters?: {
     if (filters.autor) params.append("autor", filters.autor);
     if (filters.ordenarPor) params.append("ordenarPor", filters.ordenarPor);
     if (filters.ordem) params.append("ordem", filters.ordem);
+    if (filters.keywords) {
+      const kw = filters.keywords
+      .split(/[\s,]+/)        // separa por espaço ou vírgula
+      .map(k => k.trim())      // remove espaços extras
+      .filter(Boolean)         // remove strings vazias
+      .join(",");              // junta com vírgula
+      params.append("keywords", kw );
+    }
   }
   const url = params.toString() ? `${baseUrl}?${params.toString()}` : baseUrl + '?ano=2025&ordem=desc&ordenarPor=numero&siglaTipo=PL,PEC';
   const res = await fetch(url, { headers: { Accept: "application/json" } });
@@ -100,6 +109,7 @@ export async function fetchProposicoesList(filters?: {
     throw new Error(`Erro ao buscar proposições (status ${res.status}) ${txt}`);
   }
   const data = await res.json();
+  console.log(url)
   return data.dados;
 }
 
