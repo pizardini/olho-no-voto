@@ -93,7 +93,7 @@ export async function fetchProposicoesList(filters?: {
     if (filters.ordenarPor) params.append("ordenarPor", filters.ordenarPor);
     if (filters.ordem) params.append("ordem", filters.ordem);
   }
-  const url = params.toString() ? `${baseUrl}?${params.toString()}` : baseUrl + '?ano=2025&ordem=desc&ordenarPor=numero';
+  const url = params.toString() ? `${baseUrl}?${params.toString()}` : baseUrl + '?ano=2025&ordem=desc&ordenarPor=numero&siglaTipo=PL,PEC';
   const res = await fetch(url, { headers: { Accept: "application/json" } });
   if (!res.ok) {
     const txt = await res.text().catch(() => "");
