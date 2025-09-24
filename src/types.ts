@@ -71,7 +71,29 @@ export interface ProposicaoDetalhesData {
   numero: number;
   ano: number;
   ementa: string;
+  ementaDetalhada: string;
+  dataApresentacao: string;
+  statusProposicao: StatusProposicao;
   urlInteiroTeor: string;
+  descricaoTipo: string;
+  keywords: string;
+}
+
+export interface StatusProposicao {
+  dataHora: string;
+  sequencia: number;
+  siglaOrgao: string;
+  uriOrgao: string;
+  uriUltimoRelator: string;
+  regime: string;
+  descricaoTramitacao: string;
+  codTipoTramitacao: string;
+  descricaoSituacao: string;
+  codSituacao: number;
+  despacho: string;
+  url: string | null;
+  ambito: string;
+  apreciacao: string;
 }
 
 export interface siglaTipos {

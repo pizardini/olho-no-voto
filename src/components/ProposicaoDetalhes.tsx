@@ -1,8 +1,5 @@
 import { useParams } from "react-router";
 import { useProposicaoDetalhes } from "../hooks/useProposicaoDetalhe";
-import infosJson from "../data/infos.json";
-
-const infos: Record<string, { resumo: string }> = infosJson;
 
 export default function ProposicaoDetalhes() {
   const { id } = useParams<{ id: string }>();
@@ -32,13 +29,11 @@ export default function ProposicaoDetalhes() {
         <h2 className="text-2xl font-bold text-gray-900">
           {detalhes.siglaTipo} {detalhes.numero}/{detalhes.ano}
         </h2>
-        {infos[detalhes.id] && (
-          <p className="text-sm text-gray-600 dark:text-gray-300">
-            {infos[detalhes.id].resumo}
-          </p>
-        )}
+        <p className="text-sm text-gray-600">
+          Data de apresentação: {new Date(detalhes.dataApresentacao).toLocaleString("pt-BR")}
+        </p>
         <p className="text-gray-700">{detalhes.ementa || "Sem ementa"}</p>
-        <p className="text-gray-700">{detalhes.ementa || "Sem ementa"}</p>
+        <p className="text-gray-700">{detalhes.ementaDetalhada}</p>
         {detalhes.urlInteiroTeor && (
           <a
             href={detalhes.urlInteiroTeor}
@@ -54,8 +49,7 @@ export default function ProposicaoDetalhes() {
       {/* Detalhes adicionais */}
       <div className="space-y-2 text-sm text-gray-600">
         <p>Tipo: {detalhes.codTipo}</p>
-        <p>Número: {detalhes.numero}</p>
-        <p>Ano: {detalhes.ano}</p>
+        <p>Keywords: {detalhes.keywords}</p>
       </div>
     </div>
   );
