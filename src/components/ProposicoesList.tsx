@@ -5,6 +5,7 @@ import { useNavigate } from "react-router";
 function ProposicoesList() {
   const [id, setId] = useState("");
   const [ano, setAno] = useState("");
+  const [numero, setNumero] = useState("");
   const [siglaTipo, setSiglaTipo] = useState("");
   const [dataInicio, setDataInicio] = useState("");
   const [dataFim, setDataFim] = useState("");
@@ -15,6 +16,7 @@ function ProposicoesList() {
 
   const [appliedFilters, setAppliedFilters] = useState<{
     idProposicao?: string;
+    numero?: number;
     ano?: number;
     siglaTipo?: string;
     dataApresentacaoInicio?: string;
@@ -29,6 +31,7 @@ const { proposicoes, loading, error } = useProposicoes(appliedFilters);
   const handleBuscar = () => {
     setAppliedFilters({
       idProposicao: id || undefined,
+      numero: numero ? Number(numero) : undefined,
       ano: ano ? Number(ano) : undefined,
       siglaTipo: siglaTipo || undefined,
       keywords: keywords || undefined,
@@ -54,7 +57,14 @@ const { proposicoes, loading, error } = useProposicoes(appliedFilters);
             className="border px-2 py-1 rounded flex-1 min-w-[150px]"
           />
           <input
-            type="text"
+            type="number"
+            placeholder="numero"
+            value={numero}
+            onChange={(e) => setNumero(e.target.value)}
+            className="border px-2 py-1 rounded flex-1 min-w-[150px]"
+          />
+          <input
+            type="number"
             placeholder="ano"
             value={ano}
             onChange={(e) => setAno(e.target.value)}

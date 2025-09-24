@@ -72,6 +72,7 @@ export async function fetchProposicao(idProposicao: string): Promise<ProposicaoD
 export async function fetchProposicoesList(filters?: {
   idProposicao?: string;
   ano?: number;
+  numero?: number;
   siglaTipo?: string;
   dataApresentacaoInicio?: string;
   dataApresentacaoFim?: string;
@@ -86,6 +87,7 @@ export async function fetchProposicoesList(filters?: {
   if (filters) {
     if (filters.idProposicao) params.append("id", filters.idProposicao);
     if (filters.ano !== undefined && filters.ano !== null) params.append("ano", String(filters.ano));
+    if (filters.numero !== undefined && filters.numero !== null) params.append("numero", String(filters.numero));
     if (filters.siglaTipo) params.append("siglaTipo", filters.siglaTipo);
     if (filters.dataApresentacaoInicio) params.append("dataApresentacaoInicio", filters.dataApresentacaoInicio);
     if (filters.dataApresentacaoFim) params.append("dataApresentacaoFim", filters.dataApresentacaoFim);
@@ -109,7 +111,6 @@ export async function fetchProposicoesList(filters?: {
     throw new Error(`Erro ao buscar proposições (status ${res.status}) ${txt}`);
   }
   const data = await res.json();
-  console.log(url)
   return data.dados;
 }
 
