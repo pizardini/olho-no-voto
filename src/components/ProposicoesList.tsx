@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useProposicoes } from "../hooks/useProposicoes";
+import ProposicaoDetalhes from "./ProposicaoDetalhes";
 
 function ProposicoesList() {
   const [id, setId] = useState("");
@@ -7,7 +8,7 @@ function ProposicoesList() {
   const [siglaTipo, setSiglaTipo] = useState("");
   const [dataInicio, setDataInicio] = useState("");
   const [dataFim, setDataFim] = useState("");
-
+  const [selecionada, setSelecionada] = useState<number | null>(null);
   const [ordenarPor, setOrdenarPor] = useState<"id" | "codTipo" | "siglaTipo" | "numero" | "ano">("numero");
   const [ordem, setOrdem] = useState<"asc" | "desc">("desc");
 
@@ -34,6 +35,15 @@ const { proposicoes, loading, error } = useProposicoes(appliedFilters);
       ordem
     });
   };
+
+  if (selecionada) {
+    return (
+      <div>
+        <button onClick={() => setSelecionada(null)}>Voltar</button>
+        <ProposicaoDetalhes idProposicao={selecionada} />
+      </div>
+    );
+  }
 
   return (
     <div className="p-4">
@@ -129,13 +139,18 @@ const { proposicoes, loading, error } = useProposicoes(appliedFilters);
       <ul className="space-y-2">
         {proposicoes?.length ? (
           proposicoes.map((p) => (
-            <li key={p.id} className="border p-2 rounded">
+            <li key={p.id}>
+              <button
+                onClick={() => setSelecionada(p.id)}
+                className="w-full rounded-lg bg-indigo-600 px-4 py-2 text-white hover:bg-indigo-700 transition"
+              >
               <p className="font-semibold">
                 {p.siglaTipo} {p.numero}/{p.ano}
               </p>
               <p className="text-sm text-gray-400">
                 {p.ementa || "Sem ementa"}
               </p>
+              </button>
             </li>
           ))
         ) : (

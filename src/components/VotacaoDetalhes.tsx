@@ -26,10 +26,10 @@ export default function VotacaoDetalhes({ idVotacao }: Props) {
   const [search, setSearch] = useState("");
 
   useEffect(() => {
-  if (detalhes?.ultimaApresentacaoProposicao?.uriProposicaoCitada) {
-    setUriProposicao(detalhes.ultimaApresentacaoProposicao.uriProposicaoCitada);
-  }
-}, [detalhes]);
+    if (detalhes?.ultimaApresentacaoProposicao?.uriProposicaoCitada) {
+      setUriProposicao(detalhes.ultimaApresentacaoProposicao.uriProposicaoCitada);
+    }
+  }, [detalhes]);
 
   const { detalhesP: proposicao, loading: proposicaoLoading, error: proposicaoError } = useProposicaoDetalhes(uriProposicao || "");
 
