@@ -46,7 +46,7 @@ const { proposicoes, loading, error } = useProposicoes(appliedFilters);
     <div className="p-4">
       <h2 className="text-xl font-bold mb-4">Buscar Proposições</h2>
 
-      <div className="space-y-4 mb-4">
+      <div className="space-y-4 mb-4" onKeyDown={(e) => {e.key === 'Enter' && handleBuscar()}}>
         {/* Primeira linha */}
         <div className="flex flex-wrap gap-2">
           <input
