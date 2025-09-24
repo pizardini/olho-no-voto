@@ -1,6 +1,5 @@
-import { use, useState } from "react";
+import { useState } from "react";
 import { useProposicoes } from "../hooks/useProposicoes";
-import ProposicaoDetalhes from "./ProposicaoDetalhes";
 import { useNavigate } from "react-router";
 
 function ProposicoesList() {
@@ -36,15 +35,6 @@ const { proposicoes, loading, error } = useProposicoes(appliedFilters);
       ordem
     });
   };
-
-  // if (selecionada) {
-  //   return (
-  //     <div>
-  //       <button onClick={() => setSelecionada(null)}>Voltar</button>
-  //       <ProposicaoDetalhes idProposicao={selecionada} />
-  //     </div>
-  //   );
-  // }
 
   return (
     <div className="p-4">

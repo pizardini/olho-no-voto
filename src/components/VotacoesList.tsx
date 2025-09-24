@@ -1,5 +1,4 @@
-import { useState } from "react";
-import VotacaoDetalhes from "./VotacaoDetalhes";
+import { useNavigate } from "react-router";
 
 interface VotacaoItem {
   id: string;
@@ -13,16 +12,7 @@ const votacoes: VotacaoItem[] = [
 ];
 
 export default function VotacoesList() {
-  const [selecionada, setSelecionada] = useState<string | null>(null);
-
-  if (selecionada) {
-    return (
-      <div>
-        <button onClick={() => setSelecionada(null)}>Voltar</button>
-        <VotacaoDetalhes idVotacao={selecionada} />
-      </div>
-    );
-  }
+  const navigate = useNavigate();
 
   return (
     <div>
@@ -31,7 +21,7 @@ export default function VotacoesList() {
         {votacoes.map((v) => (
           <li key={v.id}>
             <button
-              onClick={() => setSelecionada(v.id)}
+              onClick={() => navigate(`/votacoes/${v.id}`)}
               className="w-full rounded-lg bg-indigo-600 px-4 py-2 text-white hover:bg-indigo-700 transition"
             >
               {v.titulo}

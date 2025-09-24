@@ -3,12 +3,9 @@ import { useVotacao } from "../hooks/useVotacao";
 import { useVotacaoDetalhes } from "../hooks/useVotacaoDetalhes";
 import { useProposicaoDetalhes } from "../hooks/useProposicao";
 import infosJson from "../data/infos.json";
+import { useParams } from "react-router";
 
 const infos: Record<string, { resumo: string }> = infosJson;
-
-interface Props {
-  idVotacao: string;
-}
 
 const normalizeStr = (s: string) =>
   s
@@ -17,10 +14,15 @@ const normalizeStr = (s: string) =>
     .toLowerCase()
     .trim();
 
-export default function VotacaoDetalhes({ idVotacao }: Props) {
+export default function VotacaoDetalhes() {
+  const { idVotacao } = useParams<{ idVotacao: string }>();
+
+  if (!idVotacao) {
+    return <p>ID inválido</p>;
+  }
+
   const { votos, loading: votosLoading, error: votosError } = useVotacao(idVotacao);
   const { detalhes, loading: detalhesLoading, error: detalhesError } = useVotacaoDetalhes(idVotacao);
-  
   const [ uriProposicao, setUriProposicao] = useState<string | null>(null);
   const [expandedUF, setExpandedUF] = useState<string | null>(null);
   const [search, setSearch] = useState("");
