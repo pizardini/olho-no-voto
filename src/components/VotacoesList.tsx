@@ -8,7 +8,8 @@ interface VotacaoItem {
 const votacoes: VotacaoItem[] = [
   { id: "2270800-160", titulo: "PEC da Blindagem" },
   { id: "2562149-7", titulo: "Urgência da Anistia sobre atos de 08/01/2022" },
-  { id: "2525180-26", titulo: "Retirada da MPV 1303/25 da pauta da votação"}
+  { id: "2525180-26", titulo: "Retirada da MPV 1303/25 da pauta da votação"},
+  { id: "2570007-63", titulo: "Proibição de cobrança de bagagem de mão e obrigatoriedade de 1 bagagem despachada gratuita"}
   
 ];
 
