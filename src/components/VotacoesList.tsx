@@ -10,7 +10,8 @@ const votacoes: VotacaoItem[] = [
   { id: "2562149-7", titulo: "Urgência da Anistia sobre atos de 08/01/2022" },
   { id: "2525180-26", titulo: "Retirada da MPV 1303/25 da pauta da votação"},
   { id: "2570007-63", titulo: "Proibição de cobrança de bagagem de mão e obrigatoriedade de 1 bagagem despachada gratuita"},
-  { id: "2358548-98", titulo: "Reduz a pena dos crimes de golpe de estado e abolição violenta do estado democrático de direito." },
+  { id: "2358548-98", titulo: "Reduz a pena dos criminoso." },
+  { id: "2525122-81", titulo: "Cassação de Carla Zambelli." },
   
 ];
 
