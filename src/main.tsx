@@ -13,7 +13,7 @@ import VotacaoDetalhes from './components/VotacaoDetalhes';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <BrowserRouter basename="/olho-no-voto">
+    <BrowserRouter basename="/">
       <Routes>
         <Route element={<RootLayout />}>
           <Route index element={<App />} />
