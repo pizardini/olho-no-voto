@@ -13,7 +13,7 @@ const votacoes: VotacaoItem[] = [
   { id: "2358548-98", titulo: "Reduz a pena dos criminosos de golpe de estado." },
   { id: "2525122-81", titulo: "Cassação de Carla Zambelli." },
   { id: "2613731-47", titulo: "Proibição do aumento abusivo de combustíveis." },
-  // { id: "2233802-", titulo: "Fim da escala 6x1 e redução da jornada de trabalho de 44 para 40 horas" },
+  { id: "2233802-424", titulo: "Fim da escala 6x1 e redução da jornada de trabalho de 44 para 40 horas" },
 ];
 
 export default function VotacoesList() {
