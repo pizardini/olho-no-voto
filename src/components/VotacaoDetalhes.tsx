@@ -5,7 +5,15 @@ import { useProposicaoTeor } from "../hooks/useProposicao";
 import infosJson from "../data/infos.json";
 import { useParams } from "react-router";
 
-const infos: Record<string, { resumo: string }> = infosJson;
+const infos: Record<
+  string,
+  {
+    resumo: string;
+    merito?: number;
+    votacao_indireta?: number;
+    votacao_referencia?: string;
+  }
+> = infosJson;
 
 const normalizeStr = (s: string) =>
   s
@@ -46,6 +54,20 @@ export default function VotacaoDetalhes() {
   if (!detalhes) {
     return <p className="text-gray-600">Nenhum detalhe encontrado.</p>;
   }
+
+  const infoAtual = infos[detalhes.id];
+
+  const merito = infoAtual?.merito ?? 1;
+
+  const votoSimPositivo = merito === 1;
+
+  const simClasses = votoSimPositivo
+    ? "bg-green-100 text-green-800"
+    : "bg-red-100 text-red-800";
+
+  const naoClasses = votoSimPositivo
+    ? "bg-red-100 text-red-800"
+    : "bg-green-100 text-green-800";
 
   // Agrupar votos por UF
   const votosPorUf = votos.reduce((acc: Record<string, typeof votos>, v) => {
@@ -89,6 +111,24 @@ export default function VotacaoDetalhes() {
           Votação {detalhes.id}
         </h2>
         <p className="text-sm text-gray-600">{infos[detalhes.id]?.resumo}</p>
+        {infoAtual?.votacao_indireta === 1 && (
+          <div className="mt-3 p-3 rounded-lg bg-yellow-50 border border-yellow-200">
+            <p className="text-sm text-yellow-800">
+              Esta proposição não teve votação nominal do texto final.
+              Os votos exibidos utilizam como referência uma votação correlata
+              utilizada para representar o posicionamento dos parlamentares.
+            </p>
+
+            {infoAtual?.votacao_referencia && (
+              <a
+                href={`/olho-no-voto/votacoes/${infoAtual.votacao_referencia}`}
+                className="text-sm text-blue-600 underline mt-1 inline-block"
+              >
+                Ver votação de referência ({infoAtual.votacao_referencia})
+              </a>
+            )}
+          </div>
+        )}
         <p className="text-gray-700 mb-1">{detalhes.descricao}</p>
         <p className="text-sm text-gray-600">
           Data: {new Date(detalhes.dataHoraRegistro).toLocaleString("pt-BR")}
@@ -96,7 +136,17 @@ export default function VotacaoDetalhes() {
         <p className="text-sm text-gray-600">Órgão: {detalhes.siglaOrgao}</p>
         <p className="text-sm text-gray-800 font-semibold">
           Aprovada:{" "}
-          <span className={detalhes.aprovacao === 1 ? "text-red-600" : "text-green-600"}>
+          <span
+            className={
+              detalhes.aprovacao === 1
+                ? votoSimPositivo
+                  ? "text-green-600"
+                  : "text-red-600"
+                : votoSimPositivo
+                ? "text-red-600"
+                : "text-green-600"
+            }
+          >
             {detalhes.aprovacao === 1 ? "Sim" : "Não"}
           </span>
         </p>
@@ -179,9 +229,9 @@ export default function VotacaoDetalhes() {
                         <span
                           className={`px-2 py-1 rounded text-xs font-semibold ${
                             v.tipoVoto === "Sim"
-                              ? "bg-green-100 text-green-800"
+                              ? simClasses
                               : v.tipoVoto === "Não"
-                              ? "bg-red-100 text-red-800"
+                              ? naoClasses
                               : "bg-gray-200 text-gray-700"
                           }`}
                         >
